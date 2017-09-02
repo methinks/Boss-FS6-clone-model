@@ -5,9 +5,9 @@ include <boss-fs6-clone-common.scad>;
 
 footswitchHoleDiameter = 12.4;
 footswitchHoleRadius = footswitchHoleDiameter/2;
-footswitchSideDistance = 22;
+footswitchSideDistance = 18;
 footswitchSideOffset = boxX / 2 - wallThickness - footswitchSideDistance;
-footswitchBottomDistance = 12;
+footswitchBottomDistance = boxY /2 - footswitchHoleRadius;
 footswitchBottomOffset = (boxY / 2 - footswitchHoleRadius) - footswitchBottomDistance;
 
 toggleHole = 6.4;
@@ -40,11 +40,13 @@ difference()
     cylinder(r=footswitchHoleRadius, h=wallThickness+2);
     
     //right toggle
-    translate([toggleSideOffset, -toggleTopOffset, -1])
+    rotate([90, 0, 0])
+    translate([toggleSideOffset, jackTopOffset, -jackSideOffset - 1])
     cylinder(r=toggleHoleRadius, h=wallThickness+2);
     
     //left toggle
-    translate([-toggleSideOffset, -toggleTopOffset, -1])
+    rotate([90, 0, 0])
+    translate([-toggleSideOffset, jackTopOffset, -jackSideOffset - 1])
     cylinder(r=toggleHoleRadius, h=wallThickness+2);
     
     //jack
@@ -63,7 +65,7 @@ Screw(screwXPos, -screwYPos, screwTubeR, screwHoleDiameter);
 
 separatorWidth = 2;
 separatorLength = boxY - wallThickness;
-separatorHeight = boxHeight - wallThickness;
+separatorHeight = boxHeight - wallThickness - lidBevel;
 jackCompartmentWidth = 28;
 compartmentCablesApertureZ = 7;
 compartmentCablesApertureY = 15;
