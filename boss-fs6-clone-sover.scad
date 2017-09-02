@@ -3,7 +3,7 @@ use <screw_holes.scad>;
 
 include <boss-fs6-clone-common.scad>;
 
-coverZ = 2;
+coverZ = 2.5;
 
 bevelX = boxX - wallThickness * 2 - 0.5;
 bevelY = boxY - wallThickness * 2 - 0.5;
@@ -15,7 +15,7 @@ difference() {
         translate([0, 0, coverZ / 2])
         roundedBox([boxX, boxY, coverZ], boxEdgeR, true);
         
-        translate([0, 0, coverZ / 2 + coverZ])
+        translate([0, 0, lidBevel / 2 + coverZ])
         roundedBox([bevelX, bevelY, lidBevel], boxEdgeR, true);
     }
     

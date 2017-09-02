@@ -5,7 +5,7 @@ include <boss-fs6-clone-common.scad>;
 
 footswitchHoleDiameter = 12.4;
 footswitchHoleRadius = footswitchHoleDiameter/2;
-footswitchSideDistance = 30;
+footswitchSideDistance = 22;
 footswitchSideOffset = boxX / 2 - wallThickness - footswitchSideDistance;
 footswitchBottomDistance = 12;
 footswitchBottomOffset = (boxY / 2 - footswitchHoleRadius) - footswitchBottomDistance;
@@ -61,13 +61,25 @@ Screw(-screwXPos, screwYPos, screwTubeR, screwHoleDiameter);
 Screw(-screwXPos, -screwYPos, screwTubeR, screwHoleDiameter);
 Screw(screwXPos, -screwYPos, screwTubeR, screwHoleDiameter);
 
-module Screw(screwXPos, screwYPos, screwOutR, screwDiameter) {
-    translate([screwXPos, screwYPos, 0])
+separatorWidth = 2;
+separatorLength = boxY - wallThickness;
+separatorHeight = boxHeight - wallThickness;
+jackCompartmentWidth = 28;
+compartmentCablesApertureZ = 7;
+compartmentCablesApertureY = 15;
+compartmentOffset = jackCompartmentWidth / 2 + separatorWidth / 2;
+
+Separator(jackCompartmentWidth / 2);
+Separator(-jackCompartmentWidth / 2);
+
+module Separator(x) {
+    translate([x, 0, 0])
     difference() {
-        color([0.8, 0.5, 0.5])
-        translate([0, 0, 1])
-        cylinder(r=screwTubeR, h=screwHoleHeight - 1);
-        translate([0, 0, boxHeight - screwHeight])
-        cylinder(r=screwHoleDiameter / 2, h=screwHeight + 1);
+        translate([-separatorWidth/2, -separatorLength / 2, wallThickness])
+        cube([separatorWidth, separatorLength, separatorHeight]);
+        
+        rotate([0, 90, 0])
+        translate([-separatorHeight - 2, 0, 0])
+        roundedBox([compartmentCablesApertureZ, compartmentCablesApertureY, separatorWidth + 2], boxEdgeR, true);
     }
 }
